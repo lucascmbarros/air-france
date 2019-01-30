@@ -1,0 +1,63 @@
+##########################
+#### Created by Team 5
+#### start date 01/30/2019 @ Hult
+
+#### Working directory "PENDING"
+##########################
+
+library(readxl)
+Air_France_case_files_cleaned <- read_excel("Desktop/R Class Scripts/class data files/Air France case files cleaned.xlsx")
+View(Air_France_case_files_cleaned)
+
+as_df <- as.data.frame(Air_France_case_files_cleaned)
+
+summary(as_df)
+typeof(as_df$`Match Type`)
+
+
+## creating category for Match Type
+for (i in 1:nrow(as_df)) {
+  if (as_df$`Match Type`[i] == "Advanced") {as_df$`Match Type`[i] <- "5"}
+  else if (as_df$`Match Type`[i] == "Broad") {as_df$`Match Type`[i] <- "2"}
+  else if (as_df$`Match Type`[i] == "Exact") {as_df$`Match Type`[i] <- "4"}
+  else if (as_df$`Match Type`[i] == "Standard") {as_df$`Match Type`[i] <- "3"}
+  else (as_df$`Match Type`[i] == "NA") {as_df$`Match Type`[i] <- "1"} 
+
+}
+
+
+## Creating category for Status
+for (i in 1:nrow(as_df)) {
+if (as_df$Status[i]) == "Unavailable") { as_df$Status[i] <- "0"}
+if (as_df$Status[i]) == "Paused") { as_df$Status[i] <- "1"}
+if (as_df$Status[i]) == "Live") { as_df$Status[i] <- "2"}
+if (as_df$Status[i]) == "Sent") { as_df$Status[i] <- "3"}
+
+}
+
+### Creating new datafromes by publisher name
+google_global <- as_df[as_df$`Publisher Name` =="Google - Global", ]
+google_us <- as_df[as_df$`Publisher Name` =="Google - US", ]
+
+msn_global <- as_df[as_df$`Publisher Name` =="MSN - Global", ]
+msn_us <- as_df[as_df$`Publisher Name` =="MSN - US", ]
+
+overture_global <- as_df[as_df$`Publisher Name` =="Overture - Global", ]
+overture_us <- as_df[as_df$`Publisher Name` =="Overture - US", ]
+
+yahoo_us <- as_df[as_df$`Publisher Name` =="Yahoo - US", ]
+
+
+summary(google_global)
+
+
+
+
+
+for (col in 9:ncol(google_global)) {
+  hist(google_global[,col])
+}
+
+
+
+
